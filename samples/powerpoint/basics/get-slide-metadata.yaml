@@ -1,0 +1,50 @@
+id: powerpoint-basics-get-slide-metadata
+name: Get slide metadata
+description: 'Gets the title, index, and ID of the selected slide(s).'
+author: OfficeDev
+host: POWERPOINT
+api_set: {}
+script:
+    content: |-
+        $("#get-slide-metadata").click(getSlideMetadata);
+
+        function getSlideMetadata() {
+            Office.context.document.getSelectedDataAsync(Office.CoercionType.SlideRange,
+                function (asyncResult) {
+                    if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+                        console.log(asyncResult.error.message);
+                    } else {
+                        console.log(JSON.stringify(asyncResult.value, null, 4));
+                    }
+                }
+            );
+        }
+    language: typescript
+template:
+    content: |+
+        <p class="ms-font-m">Demonstrates how to get slide metadata.</p>
+        <p class="ms-font-m">Select one or more slides and click <b>Get slide metadata</b> to get the ID, title, and index of the slide(s).</p>
+
+        <button id="get-slide-metadata" class="ms-Button">
+            <span class="ms-Button-label">Get slide metadata</span>
+        </button>
+
+    language: html
+style:
+    content: "body {\r\n    margin: 0;\r\n    padding: 10px;\r\n}\r\n\r\n\r\n/* Button customization, including overwriting some Fabric defaults */\r\n\r\n.ms-Button, .ms-Button:focus {\r\n    background: #b7472a;\r\n    border: #b7472a;\r\n}\r\n\r\n    .ms-Button > .ms-Button-label,\r\n    .ms-Button:focus > .ms-Button-label,\r\n    .ms-Button:hover > .ms-Button-label {\r\n        color: white;\r\n    }\r\n\r\n    .ms-Button:hover, .ms-Button:active {\r\n        background: #8e3720;\r\n    }\r\n\r\n    .ms-Button.is-disabled, .ms-Button:disabled {\r\n        background-color: #f4f4f4;\r\n        border-color: #f4f4f4;\r\n    }\r\n\r\n    .ms-Button.is-disabled .ms-Button-label,\r\n    .ms-Button:disabled .ms-Button-label {\r\n        color: #a6a6a6;\r\n    }\r\n\r\n    "
+    language: css
+libraries: |
+    https://appsforoffice.microsoft.com/lib/1/hosted/office.js
+    https://appsforoffice.microsoft.com/lib/1/hosted/office.d.ts
+
+    office-ui-fabric-js@1.4.0/dist/css/fabric.min.css
+    office-ui-fabric-js@1.4.0/dist/css/fabric.components.min.css
+
+    core-js@2.4.1/client/core.min.js
+    @types/core-js
+
+    @microsoft/office-js-helpers@0.7.4/dist/office.helpers.min.js
+    @microsoft/office-js-helpers@0.7.4/dist/office.helpers.d.ts
+
+    jquery@3.1.1
+    @types/jquery
